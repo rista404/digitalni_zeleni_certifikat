@@ -2,12 +2,13 @@ import {
 	createCanvas,
 	loadImage,
 } from 'https://deno.land/x/canvas@v1.2.2/mod.ts'
+import { parse } from 'https://deno.land/std@0.106.0/flags/mod.ts'
 import { DOMParser, Node } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts'
 import { scanImageData } from './zbar.wasm/index.ts'
 
-const fileName = window
-	.prompt('Type the name of the file (with the extension):')
-	?.trim()
+const fileName =
+	parse(Deno.args).file ||
+	window.prompt('Type the name of the file (with the extension):')?.trim()
 
 if (!fileName) {
 	console.log('Please provide a file name')
