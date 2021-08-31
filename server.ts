@@ -5,8 +5,17 @@ import {
 import { DOMParser, Node } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts'
 import { scanImageData } from './zbar.wasm/index.ts'
 
+const fileName = window
+	.prompt('Type the name of the file (with the extension):')
+	?.trim()
+
+if (!fileName) {
+	console.log('Please provide a file name')
+	Deno.exit(1)
+}
+
 // fetch image
-const testImg = await loadImage('./test2.png')
+const testImg = await loadImage(`./${fileName}`)
 const [w, h] = [testImg.width(), testImg.height()]
 
 // create canvas
